@@ -1,13 +1,13 @@
-'use strict';
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var reactRouter = require('react-router');
-var React = _interopDefault(require('react'));
-var PropTypes = _interopDefault(require('prop-types'));
-var warning = _interopDefault(require('tiny-warning'));
-var history = require('history');
-var invariant = _interopDefault(require('tiny-invariant'));
+import { Router, __RouterContext, matchPath } from '@ellucian/react-router';
+export { MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter } from '@ellucian/react-router';
+import React from 'react';
+import PropTypes from 'prop-types';
+import warning from 'tiny-warning';
+import _inheritsLoose from '@babel/runtime/helpers/esm/inheritsLoose';
+import { createHashHistory, createLocation } from 'history';
+import _extends from '@babel/runtime/helpers/esm/extends';
+import _objectWithoutPropertiesLoose from '@babel/runtime/helpers/esm/objectWithoutPropertiesLoose';
+import invariant from 'tiny-invariant';
 
 /**
  * The public API for a <Router> that uses HTML5 history.
@@ -18,12 +18,12 @@ function BrowserRouter(props) {
   }
 
   // Router builds it's own history
-  return /*#__PURE__*/React.createElement(reactRouter.Router, {
+  return /*#__PURE__*/React.createElement(Router, {
     children: props.children,
     debug: props.debug
   });
 }
-{
+if (process.env.NODE_ENV !== "production") {
   BrowserRouter.propTypes = {
     basename: PropTypes.string,
     children: PropTypes.node,
@@ -32,47 +32,8 @@ function BrowserRouter(props) {
     keyLength: PropTypes.number
   };
   BrowserRouter.prototype.componentDidMount = function () {
-     warning(!this.props.history, "<BrowserRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { BrowserRouter as Router }`.") ;
+    process.env.NODE_ENV !== "production" ? warning(!this.props.history, "<BrowserRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { BrowserRouter as Router }`.") : void 0;
   };
-}
-
-function _extends() {
-  _extends = Object.assign ? Object.assign.bind() : function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-  return _extends.apply(this, arguments);
-}
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  _setPrototypeOf(subClass, superClass);
-}
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-  return _setPrototypeOf(o, p);
-}
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-  return target;
 }
 
 /**
@@ -86,19 +47,19 @@ var HashRouter = /*#__PURE__*/function (_React$Component) {
       args[_key] = arguments[_key];
     }
     _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
-    _this.history = history.createHashHistory(_this.props);
+    _this.history = createHashHistory(_this.props);
     return _this;
   }
   var _proto = HashRouter.prototype;
   _proto.render = function render() {
-    return /*#__PURE__*/React.createElement(reactRouter.Router, {
+    return /*#__PURE__*/React.createElement(Router, {
       history: this.history,
       children: this.props.children
     });
   };
   return HashRouter;
 }(React.Component);
-{
+if (process.env.NODE_ENV !== "production") {
   HashRouter.propTypes = {
     basename: PropTypes.string,
     children: PropTypes.node,
@@ -106,7 +67,7 @@ var HashRouter = /*#__PURE__*/function (_React$Component) {
     hashType: PropTypes.oneOf(["hashbang", "noslash", "slash"])
   };
   HashRouter.prototype.componentDidMount = function () {
-     warning(!this.props.history, "<HashRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { HashRouter as Router }`.") ;
+    process.env.NODE_ENV !== "production" ? warning(!this.props.history, "<HashRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { HashRouter as Router }`.") : void 0;
   };
 }
 
@@ -114,7 +75,7 @@ var resolveToLocation = function resolveToLocation(to, currentLocation) {
   return typeof to === "function" ? to(currentLocation) : to;
 };
 var normalizeToLocation = function normalizeToLocation(to, currentLocation) {
-  return typeof to === "string" ? history.createLocation(to, null, null, currentLocation) : to;
+  return typeof to === "string" ? createLocation(to, null, null, currentLocation) : to;
 };
 
 var _excluded = ["innerRef", "navigate", "onClick"],
@@ -169,7 +130,7 @@ var LinkAnchor = forwardRef(function (_ref, forwardedRef) {
   /* eslint-disable-next-line jsx-a11y/anchor-has-content */
   return /*#__PURE__*/React.createElement("a", props);
 });
-{
+if (process.env.NODE_ENV !== "production") {
   LinkAnchor.displayName = "LinkAnchor";
 }
 
@@ -183,8 +144,8 @@ var Link = forwardRef(function (_ref2, forwardedRef) {
     to = _ref2.to,
     innerRef = _ref2.innerRef,
     rest = _objectWithoutPropertiesLoose(_ref2, _excluded2);
-  return /*#__PURE__*/React.createElement(reactRouter.__RouterContext.Consumer, null, function (context) {
-    !context ?  invariant(false, "You should not use <Link> outside a <Router>")  : void 0;
+  return /*#__PURE__*/React.createElement(__RouterContext.Consumer, null, function (context) {
+    !context ? process.env.NODE_ENV !== "production" ? invariant(false, "You should not use <Link> outside a <Router>") : invariant(false) : void 0;
     var history = context.history,
       baseExtensionPath = context.baseExtensionPath;
     var prefix = baseExtensionPath;
@@ -210,7 +171,7 @@ var Link = forwardRef(function (_ref2, forwardedRef) {
     return /*#__PURE__*/React.createElement(component, props);
   });
 });
-{
+if (process.env.NODE_ENV !== "production") {
   var toType = PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.func]);
   var refType = PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.shape({
     current: PropTypes.any
@@ -263,14 +224,14 @@ var NavLink = forwardRef$1(function (_ref, forwardedRef) {
     to = _ref.to,
     innerRef = _ref.innerRef,
     rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
-  return /*#__PURE__*/React.createElement(reactRouter.__RouterContext.Consumer, null, function (context) {
-    !context ?  invariant(false, "You should not use <NavLink> outside a <Router>")  : void 0;
+  return /*#__PURE__*/React.createElement(__RouterContext.Consumer, null, function (context) {
+    !context ? process.env.NODE_ENV !== "production" ? invariant(false, "You should not use <NavLink> outside a <Router>") : invariant(false) : void 0;
     var currentLocation = locationProp || context.location;
     var toLocation = normalizeToLocation(resolveToLocation(to, currentLocation), currentLocation);
     var path = toLocation.pathname;
     // Regex taken from: https://github.com/pillarjs/path-to-regexp/blob/master/index.js#L202
     var escapedPath = path && path.replace(/([.+*?=^!:${}()[\]|/\\])/g, "\\$1");
-    var match = escapedPath ? reactRouter.matchPath(currentLocation.pathname, {
+    var match = escapedPath ? matchPath(currentLocation.pathname, {
       path: escapedPath,
       exact: exact,
       sensitive: sensitive,
@@ -295,7 +256,7 @@ var NavLink = forwardRef$1(function (_ref, forwardedRef) {
     return /*#__PURE__*/React.createElement(Link, props);
   });
 });
-{
+if (process.env.NODE_ENV !== "production") {
   NavLink.displayName = "NavLink";
   var ariaCurrentType = PropTypes.oneOf(["page", "step", "location", "date", "time", "true"]);
   NavLink.propTypes = _extends({}, Link.propTypes, {
@@ -312,92 +273,5 @@ var NavLink = forwardRef$1(function (_ref, forwardedRef) {
   });
 }
 
-Object.defineProperty(exports, 'MemoryRouter', {
-  enumerable: true,
-  get: function () {
-    return reactRouter.MemoryRouter;
-  }
-});
-Object.defineProperty(exports, 'Prompt', {
-  enumerable: true,
-  get: function () {
-    return reactRouter.Prompt;
-  }
-});
-Object.defineProperty(exports, 'Redirect', {
-  enumerable: true,
-  get: function () {
-    return reactRouter.Redirect;
-  }
-});
-Object.defineProperty(exports, 'Route', {
-  enumerable: true,
-  get: function () {
-    return reactRouter.Route;
-  }
-});
-Object.defineProperty(exports, 'Router', {
-  enumerable: true,
-  get: function () {
-    return reactRouter.Router;
-  }
-});
-Object.defineProperty(exports, 'StaticRouter', {
-  enumerable: true,
-  get: function () {
-    return reactRouter.StaticRouter;
-  }
-});
-Object.defineProperty(exports, 'Switch', {
-  enumerable: true,
-  get: function () {
-    return reactRouter.Switch;
-  }
-});
-Object.defineProperty(exports, 'generatePath', {
-  enumerable: true,
-  get: function () {
-    return reactRouter.generatePath;
-  }
-});
-Object.defineProperty(exports, 'matchPath', {
-  enumerable: true,
-  get: function () {
-    return reactRouter.matchPath;
-  }
-});
-Object.defineProperty(exports, 'useHistory', {
-  enumerable: true,
-  get: function () {
-    return reactRouter.useHistory;
-  }
-});
-Object.defineProperty(exports, 'useLocation', {
-  enumerable: true,
-  get: function () {
-    return reactRouter.useLocation;
-  }
-});
-Object.defineProperty(exports, 'useParams', {
-  enumerable: true,
-  get: function () {
-    return reactRouter.useParams;
-  }
-});
-Object.defineProperty(exports, 'useRouteMatch', {
-  enumerable: true,
-  get: function () {
-    return reactRouter.useRouteMatch;
-  }
-});
-Object.defineProperty(exports, 'withRouter', {
-  enumerable: true,
-  get: function () {
-    return reactRouter.withRouter;
-  }
-});
-exports.BrowserRouter = BrowserRouter;
-exports.HashRouter = HashRouter;
-exports.Link = Link;
-exports.NavLink = NavLink;
+export { BrowserRouter, HashRouter, Link, NavLink };
 //# sourceMappingURL=react-router-dom.js.map

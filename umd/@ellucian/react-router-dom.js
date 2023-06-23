@@ -2571,10 +2571,39 @@
     // contexts is defined at a global scope within experience for extesnions
     // eslint-disable-next-line no-undef
     var history = (_useContext = React.useContext(contexts.ExtensionContext)) === null || _useContext === void 0 ? void 0 : (_useContext$dashboard = _useContext.dashboardInfo) === null || _useContext$dashboard === void 0 ? void 0 : _useContext$dashboard.history;
-    var location = React.useMemo(function () {
-      return history.location;
-    }, [history.location]);
+    var _useState = React.useState(history.location),
+      location = _useState[0],
+      setLocation = _useState[1];
+    var _useState2 = React.useState(false),
+      isMounted = _useState2[0],
+      setIsMounted = _useState2[1];
+    var _useState3 = React.useState(null),
+      pendingLocation = _useState3[0],
+      setPendingLocation = _useState3[1];
     var baseExtensionPath = useBasePath();
+    React.useEffect(function () {
+      setIsMounted(true);
+      if (pendingLocation) {
+        setLocation(pendingLocation);
+      }
+      return function () {
+        if (history.unlisten) history.unlisten();
+      };
+    }, [pendingLocation, history]);
+    React.useEffect(function () {
+      if (!props.staticContext) {
+        var unlisten = history.listen(function (newLocation) {
+          if (isMounted) {
+            setLocation(newLocation);
+          } else {
+            setPendingLocation(newLocation);
+          }
+        });
+        return function () {
+          unlisten();
+        };
+      }
+    }, [isMounted, history, props.staticContext]);
     React.useEffect(function () {
       if (props.debug) {
         console.warn("Debug mode enabled. It should be disabled before production deployment.");
@@ -2907,7 +2936,7 @@
         }
         return /*#__PURE__*/React__default.createElement(context.Provider, {
           value: props
-        }, props.match ? children ? typeof children === "function" ?  evalChildrenDev(children, props, prefixedPath)  : children : component ? /*#__PURE__*/React__default.createElement(component, props) : render ? render(props) : null : null);
+        }, props.match ? children ? typeof children === "function" ? evalChildrenDev(children, props, prefixedPath) : children : component ? /*#__PURE__*/React__default.createElement(component, props) : render ? render(props) : null : null);
       });
     };
     return Route;

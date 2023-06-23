@@ -1,10 +1,9 @@
 {
-  "name": "react-router-dom",
+  "name": "@ellucian/react-router-dom",
   "version": "5.2.0",
   "description": "DOM bindings for React Router",
-  "repository": "react-router",
+  "repository": "@ellucian/react-router",
   "license": "MIT",
-  "author": "React Training <hello@reacttraining.com>",
   "files": [
     "BrowserRouter.js",
     "HashRouter.js",
@@ -30,7 +29,7 @@
     "umd"
   ],
   "main": "index.js",
-  "module": "esm/react-router-dom.js",
+  "module": "esm/@ellucian/react-router-dom.js",
   "sideEffects": false,
   "scripts": {
     "build": "rollup -c",
@@ -41,11 +40,11 @@
     "react": ">=15"
   },
   "dependencies": {
+    "@ellucian/react-router": "git+https://github.com/tnadolski-ellucian/react-router.git",
     "@babel/runtime": "^7.1.2",
     "history": "^4.9.0",
     "loose-envify": "^1.3.1",
     "prop-types": "^15.6.2",
-    "react-router": "git+https://github.com/tnadolski-ellucian/react-router.git",
     "tiny-invariant": "^1.0.2",
     "tiny-warning": "^1.0.0"
   },

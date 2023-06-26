@@ -34,11 +34,11 @@ Grabs new history from context, and uses this as a base for all child `Route` co
 
 ### Route
 
-Adds an appropriate prefix based on history context. The prop `path` should remain unchanged from it's standard usage.
+Adds the appropriate URL prefix based on history context. The prop `path` should remain unchanged from it's standard usage.
 
 ### Redirect
 
-Prefixes redirect paths based on history context. The prop `to` should remain unchanged from it's standard usage.
+Adds the appropriate URL prefix redirect paths based on history context. The prop `to` should remain unchanged from it's standard usage.
 
 ## Contribute
 

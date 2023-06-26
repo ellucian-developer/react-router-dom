@@ -40,7 +40,7 @@
     "react": ">=15"
   },
   "dependencies": {
-    "@ellucian/react-router": "git+https://github.com/tnadolski-ellucian/react-router.git",
+    "@ellucian/react-router": "git+https://github.com/ellucian-developer/react-router.git#v5.2.0",
     "@babel/runtime": "^7.1.2",
     "history": "^4.9.0",
     "loose-envify": "^1.3.1",

@@ -1,37 +1,45 @@
 # react-router-dom
 
-DOM bindings for [React Router](https://reacttraining.com/react-router).
+A safe react-router-dom wrapper for use in Ellucian Experience Extensions. Includes all components of react-router.
 
-## Installation
+If you currently have @ellucian/react-router-dom as a dependency in your extension, you do not need to include @ellucian/react-router.
 
-Using [npm](https://www.npmjs.com/):
+## Differences
 
-    $ npm install --save react-router-dom
+### BrowserRouter
 
-Then with a module bundler like [webpack](https://webpack.github.io/), use as you would anything else:
+Behaves the same to the standard `Router` component. Assets history based on Experience history context.
 
-```js
-// using ES6 modules
-import { BrowserRouter, Route, Link } from "react-router-dom";
+Providing your own basename will be safely ignored by the component.
 
-// using CommonJS modules
-const BrowserRouter = require("react-router-dom").BrowserRouter;
-const Route = require("react-router-dom").Route;
-const Link = require("react-router-dom").Link;
-```
+### Link
 
-The UMD build is also available on [unpkg](https://unpkg.com):
+Adds an appropriate prefix based on history context. The prop `to` should remain unchanged from it's standard usage.
 
-```html
-<script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
-```
+## react-router changes
 
-You can find the library on `window.ReactRouterDOM`.
+These are changes that are included as part of the @ellucian/react-router dependency
 
-## Issues
+### Router
 
-If you find a bug, please file an issue on [our issue tracker on GitHub](https://github.com/ReactTraining/react-router/issues).
+Changes have been made to the Router components to always assume history based on the Ellucian Experience Router. This history is stored in context and shared among the other child components
 
-## Credits
+Additionally, a `debug` prop has been added which can help debug history changes and location during development. `debug` is a boolean which defaults to false.
 
-React Router is built and maintained by [React Training](https://reacttraining.com).
+### Switch
+
+Grabs new history from context, and uses this as a base for all child `Route` components.
+
+### Route
+
+Adds an appropriate prefix based on history context. The prop `path` should remain unchanged from it's standard usage.
+
+### Redirect
+
+Prefixs redirect paths based on history context. The prop `to` should remain unchanged from it's standard usage.
+
+## Contribute
+
+If there's a bug please submit open an issue report through GitHub's interface.
+
+Pull Requests are welcomed.

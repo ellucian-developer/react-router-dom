@@ -1140,7 +1140,7 @@
 
 "@ellucian/react-router@git+https://github.com/ellucian-developer/react-router.git#v5.2.0":
   version "5.2.0"
-  resolved "git+https://github.com/ellucian-developer/react-router.git#722346500ca0d4f349e026ac46affaea803474f0"
+  resolved "git+https://github.com/ellucian-developer/react-router.git#e59fbdadb909afbf2cd1c51ee65ff2fa0d96b842"
   dependencies:
     "@babel/runtime" "^7.1.2"
     history "^4.9.0"
